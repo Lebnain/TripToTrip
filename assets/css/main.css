@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #faf8f4;
+    color: #1a1410;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      #e8ddc8 0%,
+      #f2ede2 50%,
+      #e8ddc8 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s infinite;
+  }
+
+  .day-card {
+    @apply relative bg-white rounded-2xl overflow-hidden border border-sand-200;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .day-card:hover {
+    @apply shadow-xl;
+    transform: translateY(-2px);
+  }
+
+  .activity-pill {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-sand-200 bg-white text-ink font-body text-sm placeholder-sand-400;
+    @apply focus:outline-none focus:ring-2 focus:ring-sand-400 focus:border-transparent;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-body font-medium text-sm;
+    @apply bg-ink text-sand-100 hover:bg-ink-soft;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f2ede2;
+}
+::-webkit-scrollbar-thumb {
+  background: #c9b285;
+  border-radius: 3px;
+}
+
+/* Fade-up stagger utility */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
