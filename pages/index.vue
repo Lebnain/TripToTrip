@@ -6,7 +6,7 @@
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div class="absolute top-0 right-0 w-[600px] h-[600px] opacity-10"
           style="background: radial-gradient(circle, #b89a65 0%, transparent 70%)"></div>
-        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] opacity-8"
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] opacity-[0.08]"
           style="background: radial-gradient(circle, #c9b285 0%, transparent 70%)"></div>
         <!-- Grid lines -->
         <svg class="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">

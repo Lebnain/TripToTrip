@@ -2014,7 +2014,7 @@ async function errorHandler(error, event) {
 
 const rootDir = "C:/Users/abour/repo/TripToTrip";
 
-const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"AI-powered day-by-day itinerary planner"}],"link":[{"rel":"preconnect","href":"https://fonts.googleapis.com"},{"rel":"preconnect","href":"https://fonts.gstatic.com","crossorigin":""},{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap"}],"style":[],"script":[],"noscript":[],"title":"Wandr — AI Trip Planner"};
+const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"AI-powered day-by-day itinerary planner"}],"link":[{"rel":"preconnect","href":"https://fonts.googleapis.com"},{"rel":"preconnect","href":"https://fonts.gstatic.com","crossorigin":""},{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap"}],"style":[],"script":[],"noscript":[],"title":"Trip to Trip"};
 
 const appRootTag = "div";
 
@@ -2115,7 +2115,22 @@ const plugins = [
 _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw
 ];
 
-const assets = {};
+const assets = {
+  "/index.mjs": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1b039-2Q7EDaQH5B+58SVg9kzp1T2039Y\"",
+    "mtime": "2026-06-17T17:06:35.663Z",
+    "size": 110649,
+    "path": "index.mjs"
+  },
+  "/index.mjs.map": {
+    "type": "application/json",
+    "etag": "\"6df03-7NfYRqBfu08cIkD3BBcdN7KUT1c\"",
+    "mtime": "2026-06-17T17:06:35.663Z",
+    "size": 450307,
+    "path": "index.mjs.map"
+  }
+};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
@@ -2932,7 +2947,7 @@ const generateItinerary_post = defineEventHandler(async (event) => {
   }
   const start = new Date(startDate);
   const end = new Date(endDate);
-  const nights = Math.ceil((end - start) / (1e3 * 60 * 60 * 24));
+  const nights = Math.ceil((end.getTime() - start.getTime()) / (1e3 * 60 * 60 * 24));
   const days = nights + 1;
   if (days < 1 || days > 30) {
     throw createError({ statusCode: 400, message: "Trip duration must be between 1 and 30 days" });
@@ -2987,7 +3002,7 @@ Return ONLY a valid JSON object (no markdown, no explanation) with this exact st
 Each day should have 4-6 activities. Be specific with real place names, restaurants, and landmarks in ${destination}. Make it genuinely useful and authentic.`;
   try {
     const message = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-sonnet-4-6",
       max_tokens: 8e3,
       messages: [{ role: "user", content: prompt }]
     });
@@ -2999,7 +3014,7 @@ Each day should have 4-6 activities. Be specific with real place names, restaura
     console.error("API Error:", err);
     throw createError({
       statusCode: 500,
-      message: err.message || "Failed to generate itinerary"
+      message: err instanceof Error ? err.message : "Failed to generate itinerary"
     });
   }
 });

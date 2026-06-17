@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
   const start = new Date(startDate)
   const end = new Date(endDate)
-  const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24))
+  const nights = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
   const days = nights + 1
 
   if (days < 1 || days > 30) {
@@ -71,7 +71,7 @@ Each day should have 4-6 activities. Be specific with real place names, restaura
 
   try {
     const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       max_tokens: 8000,
       messages: [{ role: 'user', content: prompt }]
     })
@@ -87,7 +87,7 @@ Each day should have 4-6 activities. Be specific with real place names, restaura
     console.error('API Error:', err)
     throw createError({ 
       statusCode: 500, 
-      message: err.message || 'Failed to generate itinerary' 
+      message: err instanceof Error ? err.message : 'Failed to generate itinerary'
     })
   }
 })
